@@ -260,6 +260,7 @@ const Profile = () => {
     return (
       <div style={styles.loadingPage}>
         <div style={styles.loader}></div>
+
         <p>Loading your profile...</p>
       </div>
     );
@@ -350,7 +351,9 @@ const Profile = () => {
           </div>
 
           <div style={styles.profileHeading}>
-            <h2>{user.name}</h2>
+            <h2 style={styles.profileName}>
+              {user.name}
+            </h2>
 
             <p>{user.email}</p>
 
@@ -412,9 +415,26 @@ const Profile = () => {
 
             </div>
 
-            {/* ACTIONS */}
+            {/* =========================
+                ACTIONS
+            ========================= */}
 
             <div style={styles.actions}>
+
+              {/* ADMIN DASHBOARD */}
+
+              {user.role === "admin" && (
+                <button
+                  onClick={() =>
+                    navigate("/admin/dashboard")
+                  }
+                  style={styles.adminButton}
+                >
+                  Admin Dashboard
+                </button>
+              )}
+
+              {/* EDIT PROFILE */}
 
               <button
                 onClick={() => {
@@ -425,6 +445,8 @@ const Profile = () => {
               >
                 Edit Profile
               </button>
+
+              {/* CHANGE PASSWORD */}
 
               <button
                 onClick={() =>
@@ -438,6 +460,8 @@ const Profile = () => {
                   ? "Close Password"
                   : "Change Password"}
               </button>
+
+              {/* LOGOUT */}
 
               <button
                 onClick={handleLogout}
@@ -639,6 +663,7 @@ const Profile = () => {
 // ==================================================
 
 const styles = {
+
   page: {
     minHeight: "calc(100vh - 105px)",
     background: "#f7f3ed",
@@ -798,6 +823,21 @@ const styles = {
     padding: "13px 22px",
     background: "#fffdf9",
     color: "#5c4637",
+    fontSize: "14px",
+    fontWeight: "600",
+    cursor: "pointer",
+  },
+
+  // =========================
+  // ADMIN DASHBOARD BUTTON
+  // =========================
+
+  adminButton: {
+    border: "none",
+    borderRadius: "10px",
+    padding: "13px 22px",
+    background: "#b87545",
+    color: "#fffdf9",
     fontSize: "14px",
     fontWeight: "600",
     cursor: "pointer",

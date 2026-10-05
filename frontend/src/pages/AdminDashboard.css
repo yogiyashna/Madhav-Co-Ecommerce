@@ -3,8 +3,7 @@
 ========================================= */
 
 .admin-dashboard {
-  min-height: calc(100vh - 100px);
-  display: flex;
+  min-height: 100vh;
   background: #f7f3ed;
   color: #2d2118;
 }
@@ -16,20 +15,24 @@
 
 .admin-sidebar {
   width: 250px;
-  min-height: calc(100vh - 100px);
+  height: 100vh;
 
   background: #2d2118;
   color: #fff;
 
   padding: 30px 20px;
-
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
 
-  position: sticky;
-  top: 100px;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  z-index: 1000;
+
+  overflow-y: auto;
 }
 
 
@@ -38,8 +41,7 @@
 .admin-brand {
   padding: 5px 10px 30px;
 
-  border-bottom:
-    1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
 .brand-name {
@@ -67,7 +69,9 @@
 }
 
 
-/* NAVIGATION */
+/* =========================================
+   NAVIGATION
+========================================= */
 
 .admin-navigation {
   display: flex;
@@ -123,15 +127,16 @@
 }
 
 
-/* SIDEBAR BOTTOM */
+/* =========================================
+   SIDEBAR BOTTOM
+========================================= */
 
 .sidebar-bottom {
   margin-top: auto;
 
   padding-top: 25px;
 
-  border-top:
-    1px solid rgba(255,255,255,0.12);
+  border-top: 1px solid rgba(255,255,255,0.12);
 
   display: flex;
   flex-direction: column;
@@ -186,9 +191,11 @@
 ========================================= */
 
 .admin-main {
-  flex: 1;
+  margin-left: 250px;
 
   padding: 40px;
+
+  min-height: 100vh;
 
   min-width: 0;
 
@@ -234,7 +241,9 @@
 }
 
 
-/* ADMIN PROFILE */
+/* =========================================
+   ADMIN PROFILE
+========================================= */
 
 .admin-profile {
   display: flex;
@@ -245,8 +254,7 @@
 
   background: #fffdf9;
 
-  border:
-    1px solid #e5d9cc;
+  border: 1px solid #e5d9cc;
 
   border-radius: 12px;
 
@@ -316,8 +324,7 @@
       #f2e3d3
     );
 
-  border:
-    1px solid #e2cdb8;
+  border: 1px solid #e2cdb8;
 }
 
 .admin-welcome p {
@@ -376,8 +383,7 @@
 .stat-card {
   background: #fffdf9;
 
-  border:
-    1px solid #e5d9cc;
+  border: 1px solid #e5d9cc;
 
   border-radius: 14px;
 
@@ -525,8 +531,7 @@
 
   background: #fffdf9;
 
-  border:
-    1px solid #e5d9cc;
+  border: 1px solid #e5d9cc;
 
   border-radius: 13px;
 
@@ -605,8 +610,7 @@
 
   background: #fffdf9;
 
-  border:
-    1px solid #e5d9cc;
+  border: 1px solid #e5d9cc;
 
   border-radius: 14px;
 }
@@ -642,8 +646,7 @@
 }
 
 .order-row {
-  border-top:
-    1px solid #eee4d9;
+  border-top: 1px solid #eee4d9;
 
   font-size: 12px;
 }
@@ -667,8 +670,7 @@
 
   background: #f9ead9;
 
-  border:
-    1px solid #ead0b3;
+  border: 1px solid #ead0b3;
 }
 
 
@@ -701,8 +703,7 @@
 
   background: #fffdf9;
 
-  border:
-    1px solid #e5d9cc;
+  border: 1px solid #e5d9cc;
 
   border-radius: 18px;
 
@@ -767,6 +768,8 @@
   }
 
   .admin-main {
+    margin-left: 220px;
+
     padding: 30px;
   }
 
@@ -788,13 +791,17 @@
   }
 
   .admin-sidebar {
-    position: static;
+    position: relative;
 
     width: 100%;
+
+    height: auto;
 
     min-height: auto;
 
     padding: 18px;
+
+    overflow: visible;
 
     display: block;
   }
@@ -833,6 +840,8 @@
   }
 
   .admin-main {
+    margin-left: 0;
+
     padding: 20px 15px;
   }
 

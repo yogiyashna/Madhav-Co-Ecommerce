@@ -26,6 +26,9 @@ import AdminOrders from "./pages/AdminOrders";
 import AdminLogin from "./pages/AdminLogin";
 import EditProduct from "./pages/EditProduct";
 import AdminOrderDetails from "./pages/AdminOrderDetails";
+import AdminUsers from "./pages/AdminUsers";
+import AdminCategories from "./pages/AdminCategories";
+import AdminReviews from "./pages/AdminReviews";
 
 
 // ========================================
@@ -139,6 +142,16 @@ function AppContent() {
           element={<AdminDashboard />}
         />
 
+        {/* Admin Users */}
+        <Route
+          path="/admin/users"
+          element={<AdminUsers />}
+        />
+
+        <Route
+          path="/admin/reviews"
+          element={<AdminReviews />}
+        />
 
         {/* /admin → Dashboard */}
 
@@ -171,6 +184,12 @@ function AppContent() {
         <Route
           path="/admin/edit-product/:id"
           element={<EditProduct />}
+        />
+
+        {/* Admin Categories */}
+        <Route
+            path="/admin/categories"
+            element={<AdminCategories />}
         />
 
 
