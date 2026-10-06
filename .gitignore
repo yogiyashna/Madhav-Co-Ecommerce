@@ -36,3 +36,9 @@ Thumbs.db
 # Coverage
 coverage/
 .nyc_output/
+
+products.json
+*madhavCo*psswd*.txt
+categories.json
+orders.json
+users.json

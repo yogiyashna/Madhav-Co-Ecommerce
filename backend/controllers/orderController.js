@@ -1,19 +1,74 @@
 const Order = require("../model/Order");
+const Product = require("../model/Product");
 
 // =========================
 // Create Order
 // =========================
 const createOrder = async (req, res) => {
   try {
+    const { orderItems } = req.body;
+
+    // =========================
+    // Validate Order Items
+    // =========================
+    if (!orderItems || orderItems.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "No items in order",
+      });
+    }
+
+    // =========================
+    // Check Stock Availability
+    // =========================
+    for (const item of orderItems) {
+      const product = await Product.findById(item.product);
+
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Product not found: ${item.product}`,
+        });
+      }
+
+      if (product.stock < item.quantity) {
+        return res.status(400).json({
+          success: false,
+          message: `Insufficient stock for ${product.name}. Only ${product.stock} item(s) available.`,
+        });
+      }
+    }
+
+    // =========================
+    // Create Order
+    // =========================
     const order = await Order.create({
       ...req.body,
       user: req.user._id,
     });
 
+    // =========================
+    // Reduce Product Stock
+    // =========================
+    for (const item of orderItems) {
+      await Product.findByIdAndUpdate(
+        item.product,
+        {
+          $inc: {
+            stock: -item.quantity,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
     res.status(201).json({
       success: true,
       order,
     });
+
   } catch (error) {
     console.error("Create Order Error:", error);
 
@@ -81,9 +136,6 @@ const getOrderById = async (req, res) => {
 // =========================
 // Update Order Status
 // =========================
-// =========================
-// Update Order Status
-// =========================
 const updateOrderStatus = async (req, res) => {
   try {
     const { orderStatus } = req.body;
@@ -96,7 +148,6 @@ const updateOrderStatus = async (req, res) => {
       "Cancelled",
     ];
 
-    // Validate status
     if (!allowedStatuses.includes(orderStatus)) {
       return res.status(400).json({
         success: false,
@@ -139,6 +190,7 @@ const updateOrderStatus = async (req, res) => {
     });
   }
 };
+
 // =========================
 // Delete Order
 // =========================
@@ -157,6 +209,7 @@ const deleteOrder = async (req, res) => {
       success: true,
       message: "Order deleted successfully",
     });
+
   } catch (error) {
     console.error("Delete Order Error:", error);
 
@@ -167,16 +220,6 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-// =========================
-// Get Logged-in User Orders
-// =========================
-// Get Orders By User
-// =========================
-// Get Logged-in User Orders
-// =========================
-// =========================
-// Get Logged-in User Orders
-// =========================
 // =========================
 // Get Logged-in User Orders
 // =========================
